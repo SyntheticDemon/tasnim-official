@@ -1,0 +1,120 @@
+{%extends 'logged_in.html'%}
+{%load static%}
+
+<body>
+    
+
+{%block shit%}
+
+<div class="container" >
+  <table style="position: absolute; left:30%" id="results-table">
+    <tr>
+      <th>
+        نام  پروژه
+      </th>
+      <th>
+        مبلغ
+      </th>
+      <th>
+        شماره کارت
+      </th>
+      <th>
+        تاریخ
+      </th>
+      <th>
+        عملیات
+      </th>
+    </tr>
+    <tbody id="tbody">
+
+
+        
+    </tbody>
+   
+   </table>
+
+<div class="sub-container" style="position:absolute;left:0%;background-color:rgb(245, 245, 245);opacity:80%;border-radius:25px;padding:50px;height: 100x;width:34vh;border-width: 4px;border-bottom-width:5px;border-bottom-color:rgb(138, 138, 138)">
+
+    
+
+
+    <form  id="filter-form" method="POST">    {%csrf_token%}
+    
+    
+        <p><label >از تاریخ</label> <input type="text" name="start_date"  id="id_تاریخ" class="input-text main_style">
+        <p><label> تا تاریخ</label> <input type="text" name="end_date"  id="id_نام_پروژه" class="input-text main_style"></p>
+      
+        <p><label >نام پروژه</label> <input type="text" name="project_name"  id="id_تاریخ" class="input-text main_style">
+        <p><label> شماره کارت</label> <input type="text" name="card_number"  id="id_نام_پروژه" class="input-text main_style"></p>
+          <span>
+            <label >   مبلغ کران پایین</label>
+          <input class="input-text main_style"  type="number" name="min" value="0" id="start">
+          <label > مبلغ کران بالا</label>
+
+          <input class="input-text main_style" type="number" name="max"  value="0" id="end">
+          </span>
+        </p>
+     
+      <input type="submit" value="اعمال کن" class="input-text main_style">
+
+    </form>
+    <script>
+      instance = 0
+      $(document).ready(function() {
+
+
+        
+        // catch the form's submit event
+        $('#filter-form').submit(function() {
+            // create an AJAX call
+            document.getElementById("tbody").innerHTML=""
+         
+            $.ajax({
+                data: $(this).serialize(), // get the form data
+                type: $(this).attr('method'), // GET or POST
+                url: "/login/Outputs/get_report",
+                // on success
+                success: function(response) {
+                
+                    console.log(response)
+                    
+                    table_body =document.getElementById("tbody")
+                    table=document.getElementById("results-table")
+                    for (result of response){
+                      const new_row=document.createElement("tr")
+                      const project_name=document.createElement("td")
+                      const des_card=document.createElement("td")
+                      const date =document.createElement("td")
+                      const quantity=document.createElement("td")
+                      project_name.innerHTML=result['fields']['related_project']
+                      date.innerHTML=result['fields']['تاریخ']
+                      quantity.innerHTML=result['fields']['مبلغ']
+                      des_card.innerHTML=result['fields']['حساب_مقصد']
+                      new_row.appendChild(project_name)
+                      new_row.appendChild(quantity)
+                      new_row.appendChild(des_card)
+                      new_row.appendChild(date)
+                      table_body.appendChild(new_row)
+                      
+                    }
+                  },
+                error: function(response) {
+                    // alert the error if any error occured
+                    console.log('pooria error')
+
+                }
+            });
+    
+            return false;
+        });
+    })
+    </script>
+  
+
+        
+</div>
+
+
+{%endblock shit%}
+
+</body>

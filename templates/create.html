@@ -1,0 +1,35 @@
+{%extends 'logged_in.html'%}
+{%load static%}
+
+<body>
+    
+
+{%block shit%}
+
+<div class="container" style="position: absolute;left:41%;top:100%">
+<div class="address-container" style="position:relative;top:50%;left:0%;width:100%">
+
+</div>
+    <form method="POST" enctype="multipart/form-data">
+    
+        {% csrf_token %}
+    
+        {{ form.as_p }}
+        
+        <input type="submit" value="Submit">
+    </form>
+    <script>
+        $(document).ready(function (){
+            for (let element of document.body.getElementsByTagName("*")){
+                if (element.tagName=="TEXTAREA" || element.tagName=="INPUT" && element.id!="search-text"){
+                    element.classList.add("input-text")
+                    element.classList.add("main_style")
+                }
+                console.log(element.tagName)
+            }
+        })
+    </script>
+</div>
+{%endblock shit%}
+
+</body>

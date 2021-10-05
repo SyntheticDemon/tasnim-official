@@ -1,0 +1,146 @@
+{%extends 'logged_in.html'%}
+{%load static%}
+
+<body>
+    
+
+{%block shit%}
+    
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+</style>
+
+<table style="float: inline-end;border-width: 5px;border-style: solid;" >
+
+        <tr>
+            {%if data.0.نام_پروژه%}   
+            <th>
+            <span style="position:relative;top:15%;display:block;text-align:center;">نام پروژه</span>      
+            </th>
+            {%endif%}
+            {%if data.0.نام_خیر%}   
+            <th>
+            <span style="position:relative;top:15%;display:block;text-align:center;">نام خیر</span>      
+            </th>
+            {%endif%}
+            <th>
+                <span style="position:relative;top:15%;display:block;text-align:center;"> تاریخ  </span>      
+            </th>
+            {% if data.0.توضیحات%}
+            <th>
+                 <span style="position:relative;top:15%;display:block;text-align:center;">توضیحات </span>   
+ 
+             </th>
+             {%endif%}
+            {%if data.0.مبلغ%}
+            <th>
+            <span style="position:relative;top:15%;display:block;text-align:center;"> مبلغ  </span>      
+            </th>
+            {%endif%}
+      
+            {%if data.0.حساب_مقصد%}   
+                <th>
+                <span style="position:relative;top:15%;display:block;text-align:center;"> حساب مقصد  </span>      
+                </th>
+            {%endif%}
+            {%if data.0.حساب_خیر%}   
+            <th>
+            <span style="position:relative;top:15%;display:block;text-align:center;"> حساب خیر </span>      
+                </th>
+            {%endif%}
+           
+            <th>
+                عملیات
+            </th>
+        </tr>
+    
+    {%for object in data%}
+    <tr>
+    {%if data.0.نام_خیر%}   
+    <td>   
+    <span>{{object.نام_خیر}}</span>      
+    {%endif%}
+
+    </td>
+        {%if data.0.نام_پروژه%}   
+        <td>   
+        <span>{{object.نام_پروژه}}</span>      
+        </td>
+        {%endif%}
+        <td>
+        <span>{{object.تاریخ}} </span>      
+        </td>
+       
+  
+    {%if data.0.توضیحات%}   
+    <td>   
+    <span>{{object.توضیحات}}</span>      
+    </td>
+    {%endif%}
+
+    {%if object.مبلغ%}
+    <td>
+    <span>{{object.مبلغ}}   </span>      
+    </td>
+    {%endif%}
+
+    {%if object.حساب_مقصد%}   
+        <td>
+        <span>  {{object.حساب_مقصد}} </span>      
+    </td>
+    {%endif%}
+
+    {%if object.حساب_خیر%}   
+        <td>
+        <span>  {{object.حساب_خیر}}</span>      
+    </td>
+    {%endif%}
+
+<td>
+    {%if object.حساب_خیر%}   
+    
+    <div name id="control" style="position:relative;left:10%">
+        <a id="remove-link" href="/login/Inputs/delete/{{object.pk}}">
+            <i class="fa fa-remove" style="color: red;" ></i>
+        </a>
+        <a id="update-link" href="/login/Inputs/edit/{{object.pk}}">
+            <i class="fa fa-edit" style="color: blue;"></i>
+        </a>    
+    </div>
+    {%endif%}
+    
+    {%if object.نام_پروژه%}   
+        <div name id="control" style="position:relative;left:10%">
+        <a id="remove-link" href="/login/Projects/delete/{{object.pk}}">
+        <i class="fa fa-remove" style="color: red;" ></i>
+        </a>
+
+        
+        <a id="update-link" href="/login/Projects/edit/{{object.pk}}">
+            <i class="fa fa-edit" style="color: blue;"></i>
+        </a>    
+        </div>
+    {%endif%}
+    {%if object.حساب_مقصد%}   
+
+        <div name id="control" style="position:relative;left:10%">
+        <a id="remove-link" href="/login/Outputs/delete/{{object.pk}}">
+        <i class="fa fa-remove" style="color: red;" ></i>
+        </a>
+        <a id="update-link" href="/login/Outputs/edit/{{object.pk}}">
+            <i class="fa fa-edit" style="color: blue;"></i>
+        </a>    
+        </div>
+    {%endif%}
+
+    </td>
+</tr>
+
+{%endfor%}
+</table> 
+{%endblock shit%}
+
+</body>
