@@ -15,8 +15,6 @@ from django import forms
 from django.urls import reverse
 from django.contrib.auth.models import User
 import datetime
-
-
 from django.views.generic import ListView,DeleteView,CreateView,UpdateView
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.core import serializers
@@ -65,6 +63,30 @@ def password_check(passwd):
 
     if val:
         return ('True',True)
+def filter_fin_sets(set,request):
+        project_name=request.POST['project_name']
+        if (len(project_name)):
+            set=set.filter(related_project__نام__contains=project_name)
+        if(len(request.POST['start_date'])!=0):
+            start_date=request.POST['start_date']
+            set=set.filter(تاریخ__gt=start_date)
+        else:
+            start_date='1400-01-01' 
+        if(len(request.POST['end_date'])):
+            end_date=(request.POST['end_date'])
+            set=set.filter(تاریخ__lte=(end_date))
+        else:
+            end_date=None
+        return set
+def json_fancy_report_handler(request):
+        result={}
+        output_set=Output.objects.all()
+        input_set=Input.objects.all()
+        set=chain(output_set,input_set)    
+        set=filter_fin_sets(set,request)
+        result=serializers.serialize('json',set)
+        
+        return HttpResponse(result, content_type='application/json')
 def calculate_total_output(project):
     sum=0
     target_outputs=Output.objects.filter(related_project=project)

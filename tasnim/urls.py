@@ -13,8 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from re import template
 from django.conf.urls import url
 from django.contrib import admin
+from django.http import request
 from django.urls import path
 from django.urls.conf import include
 from tasnim_main_app.views import *
@@ -30,6 +32,8 @@ urlpatterns = [
        path('homepage/subcat/<slug>',view_subcat,name="subcat_route"),
        path('backhome/',back_home,name="profile_view"),
       # path('search/',charity_search,name="book_search"),
+       path('login/report-home',lambda request: render(request,'fancy_report.html')),
+        path('login/fancy_report',json_fancy_report_handler),
        path('login/Outputs/add',OutputCreateView.as_view()),
        path('login/Projects/add',ProjectCreateView.as_view()),
        path('login/Inputs/add',InputCreateView.as_view()),

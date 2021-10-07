@@ -1,6 +1,28 @@
 function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
+function make_table(response){
+
+    table_body =document.getElementById("tbody")
+    table=document.getElementById("results-table")
+    for (result of response){
+      const new_row=document.createElement("tr")
+      const project_name=document.createElement("td")
+      const des_card=document.createElement("td")
+      const date =document.createElement("td")
+      const quantity=document.createElement("td")
+      project_name.innerHTML=result['fields']['related_project']
+      date.innerHTML=result['fields']['تاریخ']
+      quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
+      des_card.innerHTML=result['fields']['حساب_مقصد']
+      new_row.appendChild(project_name)
+      new_row.appendChild(quantity)
+      new_row.appendChild(des_card)
+      new_row.appendChild(date)
+      table_body.appendChild(new_row)
+      
+    }
+}
 $(document).ready(function() {
 
 
@@ -18,26 +40,8 @@ $(document).ready(function() {
             success: function(response) {
             
                 console.log(response)
-                
-                table_body =document.getElementById("tbody")
-                table=document.getElementById("results-table")
-                for (result of response){
-                  const new_row=document.createElement("tr")
-                  const project_name=document.createElement("td")
-                  const des_card=document.createElement("td")
-                  const date =document.createElement("td")
-                  const quantity=document.createElement("td")
-                  project_name.innerHTML=result['fields']['related_project']
-                  date.innerHTML=result['fields']['تاریخ']
-                  quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
-                  des_card.innerHTML=result['fields']['حساب_مقصد']
-                  new_row.appendChild(project_name)
-                  new_row.appendChild(quantity)
-                  new_row.appendChild(des_card)
-                  new_row.appendChild(date)
-                  table_body.appendChild(new_row)
-                  
-                }
+                make_table(response)
+         
               },
             error: function(response) {
                 // alert the error if any error occured

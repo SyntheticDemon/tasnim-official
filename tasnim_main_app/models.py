@@ -13,7 +13,11 @@ class Category(models.Model):
     def __str__(self) -> str:   
         return self.name
 
-
+class Person(models.Model):
+    full_name=models.TextField(max_length=200,verbose_name='نام شخص')
+    card_numbers=models.TextField()
+    total_donations=models.IntegerField(default=0)
+    
     
 class MyUser(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)

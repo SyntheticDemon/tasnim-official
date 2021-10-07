@@ -9,7 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
 
     
     
@@ -39,7 +40,7 @@
             </a>
             {%endfor%}
                 <div  class="category-nav-bar">
-                    گزارش دقیق
+                    فیلتر 
                     <div class="dropdown"  style="margin-top:40px;height:100px">
                     </a>
                     <a href="/login/Projects/detail_report">
@@ -53,10 +54,20 @@
                     <a href="/login/Outputs/detail_report">
                             خروجی ها <i class="fa fa-arrow-right" style="color:#3a7fe665;position:relative;top:5px;left:10px;font-size:24px"></i>
                     </a>
+                    <a href="/login/report-home" style="text-decoration: none;color:black ">
+
+                      
+                            
+                    </a>
+                   
                     </div>
                     </div>
                     </div>
+                    <div class="category-nav-bar" style="position:relative;z-index:0" aria-placeholder="">
+                        نمای کلی
                 </div>
+                </div>
+              
       </div>
 
             <a href="/backhome" style="text-decoration: none;color:black ">
@@ -69,8 +80,8 @@
 
                    </div>
             </a>
-           
-            <a href="/login/report">
+         
+   
             </div>
             
             </div>
