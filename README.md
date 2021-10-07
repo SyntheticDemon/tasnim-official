@@ -3,5 +3,5 @@ Tasnim official dashboard is at the moment  a local  panel for managing database
 
 This project intends to become an automated charity website in the future  with public access for payments using Iranian Bank APIs
 
-Frontend is basically done by me with great help from dear https://www.instagram.com/pouyasnap for color logos,palletes, fonts, background images and insipiration
+Frontend is basically done by me with great help from dear https://www.instagram.com/pouyasnap for color palletes,logos,font suggestions,background images general inspiration
 Backend is fully devleoped by me in the python django framework with help from AJAX and Basic Javacsript
