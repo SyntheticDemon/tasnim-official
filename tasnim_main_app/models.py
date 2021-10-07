@@ -6,7 +6,7 @@ from django.db.models.expressions import Subquery
 from django.db.models.fields import DateTimeField, IntegerField
 from django_jalali.db import models as jmodels
 import time
-from django.db.models.fields.related import OneToOneField
+from django.db.models.fields.related import ForeignKey, OneToOneField
 class Category(models.Model):
     name=models.TextField(max_length=200)
     url=models.TextField(max_length=200)
@@ -34,9 +34,10 @@ class Project(models.Model):
 class Input(models.Model):
     حساب_خیر=models.TextField(max_length=16)
     نام_خیر=models.TextField(max_length=100)
-    مبلغ=models.DecimalField(max_digits=30,decimal_places=2)
-    نام_ورودی=models.TextField(max_length=300)
+    مبلغ=models.DecimalField(max_digits=30,decimal_places=0)
+    نام_ورودی=models.TextField(max_length=300,verbose_name="یاد نشان")
     تاریخ=jmodels.jDateField(auto_created=True)
+    input_project=models.ForeignKey(Project,on_delete=models.CASCADE,null=True,verbose_name="پروژه",related_name="related_proj")
     def __str__(self) -> str:
         return  self.نام_ورودی+" "+self.نام_خیر
 class Output(models.Model):
@@ -44,6 +45,6 @@ class Output(models.Model):
     حساب_مقصد=models.TextField(max_length=16)
     نام_ورودی=models.TextField(max_length=300)
     مبلغ=models.DecimalField(max_digits=30,decimal_places=2)
-    تاریخ=jmodels.jDateField(auto_created=True)
+    تاریخ=jmodels.jDateField(auto_created=True,default="0")
     def __str__(self) -> str:
         return self.حساب_مقصد+" "+self.نام_ورودی

@@ -1,3 +1,6 @@
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
 $(document).ready(function() {
 
 
@@ -26,7 +29,7 @@ $(document).ready(function() {
                   const quantity=document.createElement("td")
                   donor_name.innerHTML=result['fields']['نام_خیر']
                   date.innerHTML=result['fields']['تاریخ']
-                  quantity.innerHTML=result['fields']['مبلغ']
+                  quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
                   new_card_num.innerHTML=result['fields']['حساب_خیر']
                   new_row.appendChild(donor_name)
                   new_row.appendChild(quantity)

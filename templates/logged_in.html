@@ -3,30 +3,25 @@
 <html>
 
 <head>
-    
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{%static 'tasnim_main_app/styles.css'%}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    
+    <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazir-font@v30.1.0/dist/font-face.css" rel="stylesheet" type="text/css" />
     
 
     
     
 </head>
 
-
 <body>
-
-
-    <div>
-
-        <img style="height:100px;position:absolute;top:2%;left:-2%" src="{%static 'tasnim_main_app/images/logo.png'%}">
-       
-
-        <div class="header-first" style="position:absolute;top:0;z-index: 0;left:0%; border-radius:0px;height:18%">
-           
+        
+    <img src="{%static 'tasnim_main_app/images/back2.jpeg'%}"  style="z-index: -5;;opacity: 30%;;width: 100%;height: 100%;top:0%;position:absolute;left:0%" >
+        
+        <div class="header-first" style="position:absolute;top:0;z-index: 0;left:0%; border-radius:0px;height:18%;background-color:#f7f7f7">
+         
+            <img style="height:100%;position:absolute;top:0%;left:0%;z-index: 0;" src="{%static 'tasnim_main_app/images/logo.png'%}">
             {%for tab in tab_data%}
             <a href="/login/{{tab.cat.url}}" style="text-decoration: none">
             <div  class="category-nav-bar">
@@ -34,11 +29,11 @@
             <div class="dropdown"  style="margin-top:40px">
             </a>
             <a href="/login/{{tab.cat.url}}/add">
-                    اضافه<i class="fa fa-plus" style="color:green;position:relative;top:5px;left:10px;font-size:24px"></i>
+                    اضافه<i class="fa fa-plus" style="color:#3a7fe665;position:relative;top:5px;left:10px;font-size:24px"></i>
             </a>
             <br>
             <a href="/login/{{tab.cat.url}}/report">
-                 گزارش کلی <i class="fa fa-bar-chart" style="color:green;position:relative;top:5px;left:10px;font-size:24px"></i>
+                 گزارش کلی <i class="fa fa-bar-chart" style="color:#3a7fe665;position:relative;top:5px;left:10px;font-size:24px"></i>
               </div>
             </div>
             </a>
@@ -48,25 +43,25 @@
                     <div class="dropdown"  style="margin-top:40px;height:100px">
                     </a>
                     <a href="/login/Projects/detail_report">
-                            پروژه ها<i class="fa fa-tasks" aria-hidden="true" style="color:green;position:relative;top:5px;left:10px;font-size:24px"></i>
+                            پروژه ها<i class="fa fa-tasks" aria-hidden="true" style="color:#002b6b;position:relative;top:5px;left:10px;font-size:24px"></i>
                     </a>
                     <br>
                     <a href="/login/Inputs/detail_report">
-                         ورودی ها  <i class="fa fa-arrow-left" style="color:green;position:relative;top:5px;left:10px;font-size:24px"></i>
+                         ورودی ها  <i class="fa fa-arrow-left" style="color:#3a7fe665;position:relative;top:5px;left:10px;font-size:24px"></i>
                     </a>
                     <br>
                     <a href="/login/Outputs/detail_report">
-                            خروجی ها <i class="fa fa-arrow-right" style="color:green;position:relative;top:5px;left:10px;font-size:24px"></i>
+                            خروجی ها <i class="fa fa-arrow-right" style="color:#3a7fe665;position:relative;top:5px;left:10px;font-size:24px"></i>
                     </a>
                     </div>
                     </div>
                     </div>
                 </div>
-۳        </div>
+      </div>
 
             <a href="/backhome" style="text-decoration: none;color:black ">
 
-                <div class="category-nav-bar" style="position:absolute;left:87%;top:2%;z-index:2" aria-placeholder="">
+                <div class="category-nav-bar" style="position:absolute;left:87%;top:2%;z-index:0" aria-placeholder="">
 
                     خانه
                     <div style="position:relative;font-size: small;left:110%">

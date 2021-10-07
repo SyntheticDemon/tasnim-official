@@ -67,7 +67,7 @@ def password_check(passwd):
         return ('True',True)
 def calculate_total_output(project):
     sum=0
-    target_outputs=Output.objects.filter(پروژه_مربوطه=project)
+    target_outputs=Output.objects.filter(related_project=project)
     for output in target_outputs:
         sum+=output.مبلغ
     return sum
