@@ -1,0 +1,44 @@
+{%extends 'logged_in.html'%}
+{%load static%}
+
+<body>
+    
+
+{%block shit%}
+
+<div class="container" >
+
+<div class="sub-container" style="position:absolute;left:0%;background-color:rgb(245, 245, 245);opacity:80%;border-radius:25px;padding:50px;height: 100x;width:34vh;border-width: 4px;border-bottom-width:5px;border-bottom-color:rgb(138, 138, 138)">
+
+
+
+
+    <form  id="filter-form" method="POST" >    {%csrf_token%}
+    
+    
+        <p><label >از تاریخ</label> <input type="text" name="start_date"  id="id_تاریخ" class="input-text main_style">
+        <p><label> تا تاریخ</label> <input type="text" name="end_date"  id="id_نام_پروژه" class="input-text main_style"></p>
+      
+        <p><label >نام پروژه</label> <input type="text" name="project_name"  id="id_تاریخ" class="input-text main_style">
+     
+
+          </span>
+        </p>
+        
+      <input type="submit" value="اعمال کن" class="input-text main_style">
+
+    </form>
+    <script src="{%static 'tasnim_main_app/send_fancy_response.js'%}">
+
+    </script>
+ 
+
+
+</div>
+<div >
+  <canvas id="results_chart" style="position: absolute;top:50%;left:50%;width:100%;max-width:500px"></canvas>
+
+</div>
+{%endblock shit%}
+
+</body>
