@@ -78,12 +78,29 @@ def filter_fin_sets(set,request):
         else:
             end_date=None
         return set
+def filter_fin_sets_inputs(set,request):
+        project_name=request.POST['project_name']
+        if (len(project_name)):
+            set=set.filter(input_project__نام__contains=project_name)
+        if(len(request.POST['start_date'])!=0):
+            start_date=request.POST['start_date']
+            set=set.filter(تاریخ__gt=start_date)
+        else:
+            start_date='1400-01-01' 
+        if(len(request.POST['end_date'])):
+            end_date=(request.POST['end_date'])
+            set=set.filter(تاریخ__lte=(end_date))
+        else:
+            end_date=None
+        return set
 def json_fancy_report_handler(request):
         result={}
         output_set=Output.objects.all()
         input_set=Input.objects.all()
-        set=chain(output_set,input_set)    
-        set=filter_fin_sets(set,request)
+        
+        first_set=filter_fin_sets_inputs(input_set,request)
+        output_set=filter_fin_sets(output_set,request)
+        set=chain(first_set,output_set)
         result=serializers.serialize('json',set)
         
         return HttpResponse(result, content_type='application/json')
@@ -148,7 +165,7 @@ def output_report_view(request):
         if(len(card_number)):
             set=set.filter(حساب_مقصد__contains=card_number)
         if (len(project_name)):
-            set=set.filter(related_project__نام__contains=project_name)
+            set=set.filter(related_project__نام_پروژه__contains=project_name)
         if(len(request.POST['start_date'])!=0):
             start_date=request.POST['start_date']
             set=set.filter(تاریخ__gt=start_date)
@@ -162,10 +179,8 @@ def output_report_view(request):
         set= set.filter(مبلغ__gt=(min_value))
         if(max_value!=0):
             set=set.filter(مبلغ__lte=(max_value))
-        
 
         result=serializers.serialize('json',set)
-        
         return HttpResponse(result, content_type='application/json')
 def admin_view(request):
     return render(request,'login.html')

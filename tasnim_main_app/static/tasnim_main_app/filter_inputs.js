@@ -10,6 +10,14 @@ function make_table(response){
       const new_card_num=document.createElement("td")
       const date =document.createElement("td")
       const quantity=document.createElement("td")
+      const operation_element=document.createElement("td")
+      const remove_element=document.createElement("a",id="remove-link", href="/login/Inputs/delete/"+result['fields']['pk'])
+      const edit_element=document.createElement("a",id="update-link", href="/login/Inputs/update/"+result['fields']['pk'] )
+      remove_element.innerHTML='<i class="fa fa-remove" style="color: red;" ></i>'
+      edit_element.innerHTML='<i class="fa fa-remove" style="color: red;" ></i>'
+      operation_element.appendChild(remove_element)
+      operation_element.appendChild(edit_element)
+
       donor_name.innerHTML=result['fields']['نام_خیر']
       date.innerHTML=result['fields']['تاریخ']
       quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
@@ -18,8 +26,9 @@ function make_table(response){
       new_row.appendChild(quantity)
       new_row.appendChild(new_card_num)
       new_row.appendChild(date)
+      new_row.appendChild(operation_element)
       table_body.appendChild(new_row)
-      
+   
     }
 }
 $(document).ready(function() {

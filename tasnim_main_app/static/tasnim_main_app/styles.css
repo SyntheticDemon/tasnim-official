@@ -10,7 +10,6 @@
     justify-content: center;
     align-items: center;
 }
-tr:nth-child(even) {background-color: #f2f2f2;} 
 th {
     background-color: #3a7fe665;
     color: rgb(255, 255, 255);
@@ -21,11 +20,11 @@ th {
   th, td {
     height:10vh;
     width: 20vh;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #3a7fe665;
     border-width: 2px;
     align-items: center;
     font-family: 'Vazir', sans-serif; 
-
+    background-color: rgba(199, 199, 199, 0.685);
     vertical-align: center;
     text-align: center;
   }
@@ -113,12 +112,15 @@ font-family: 'Vazir', sans-serif;    font-size: 35px;
 .input-text {
     border-width: 3px;
     height: 40px;
-    width: 300px;
+    width: 30vh;
     text-align: center;
     display: flex;
     font-size: large;
 }
 
+a, a:visited, a:hover, a:active {
+    color: inherit;
+  }
 .header {
     top: 15%;
     border-width: 0px;

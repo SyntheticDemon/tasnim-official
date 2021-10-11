@@ -26,11 +26,14 @@ class MyUser(models.Model):
     zip_code=models.TextField(max_length=200)
     def __str__(self) -> str:
         return self.username
-
+class Donor(models.Model):
+    name=models.CharField(max_length=200)
+    card_number=models.CharField(max_length=200)
 class Project(models.Model):
     نام_پروژه=models.CharField(max_length=30)    
     تاریخ=jmodels.jDateField(auto_created=True)
     توضیحات=models.TextField(max_length=300)
+
     def __render__(self)->str:
         return "نام_پروژه %s تاریخ اضافه شدن %s تاریخ اضافه شدن %s ".format(self.نام_پروژه,self.تاریخ,self.توضیحات)
     def __str__(self) -> str:
@@ -42,6 +45,7 @@ class Input(models.Model):
     نام_ورودی=models.TextField(max_length=300,verbose_name="یاد نشان")
     تاریخ=jmodels.jDateField(auto_created=True)
     input_project=models.ForeignKey(Project,on_delete=models.CASCADE,null=True,verbose_name="پروژه",related_name="related_proj")
+
     def __str__(self) -> str:
         return  self.نام_ورودی+" "+self.نام_خیر
 class Output(models.Model):
