@@ -17,12 +17,12 @@ function read_values(response){
             outputs_y.push(-data['fields']['مبلغ'])
         }
     }
-    data=input_x.concat(outputs_x)
+    data=input_y.concat(outputs_y)
     const colours = data.map((value) => parseInt(value) <= 0 ? 'red' : 'green');
     new Chart("results_chart", {
       type: "bar",
       data: { 
-        labels: data,
+        labels: input_x.concat(outputs_x),
         datasets: [{
           barThickness: 10,
           backgroundColor: colours,
@@ -40,11 +40,10 @@ function read_values(response){
 
 }
 $(document).ready(function() {
-        
     // catch the form's submit event
     $('#filter-form').submit(function() {
         // create an AJAX call
-     
+        
         $.ajax({
             data: $(this).serialize(), // get the form data
             type: $(this).attr('method'), // GET or POST

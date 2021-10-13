@@ -11,6 +11,15 @@ function make_table(response){
       const des_card=document.createElement("td")
       const date =document.createElement("td")
       const quantity=document.createElement("td")
+      const operation_element=document.createElement("td")
+      const remove_element=document.createElement("a",id="remove-link")
+      remove_element.href="/login/Outputs/delete/" + result['pk']
+      const edit_element=document.createElement("a",id="update-link" )
+      edit_element.href="/login/Outputs/edit/" + result['pk']
+      remove_element.innerHTML='<i class="fa fa-trash" style="color: red;" ></i> <br>'
+      edit_element.innerHTML='<i class="fa fa-edit" style="color: blue; transform: rotate(45);" ></i>'
+      operation_element.appendChild(remove_element)
+      operation_element.appendChild(edit_element)
       project_name.innerHTML=result['fields']['related_project']
       date.innerHTML=result['fields']['تاریخ']
       quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
@@ -19,6 +28,7 @@ function make_table(response){
       new_row.appendChild(quantity)
       new_row.appendChild(des_card)
       new_row.appendChild(date)
+      new_row.appendChild(operation_element)
       table_body.appendChild(new_row)
       
     }

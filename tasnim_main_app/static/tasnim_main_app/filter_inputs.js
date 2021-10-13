@@ -11,13 +11,14 @@ function make_table(response){
       const date =document.createElement("td")
       const quantity=document.createElement("td")
       const operation_element=document.createElement("td")
-      const remove_element=document.createElement("a",id="remove-link", href="/login/Inputs/delete/"+result['fields']['pk'])
-      const edit_element=document.createElement("a",id="update-link", href="/login/Inputs/update/"+result['fields']['pk'] )
-      remove_element.innerHTML='<i class="fa fa-remove" style="color: red;" ></i>'
-      edit_element.innerHTML='<i class="fa fa-remove" style="color: red;" ></i>'
+      const remove_element=document.createElement("a",id="remove-link")
+      remove_element.href="/login/Inputs/delete/" + result['fields']['pk']
+      const edit_element=document.createElement("a",id="update-link" )
+      edit_element.href="/login/Inputs/edit/" + result['fields']['pk']
+      remove_element.innerHTML='<i class="fa fa-edit" style="color: blue;" ></i>'
+      edit_element.innerHTML='<i class="fa fa-plus" style="color: red; transform: rotate(45);" ></i>'
       operation_element.appendChild(remove_element)
       operation_element.appendChild(edit_element)
-
       donor_name.innerHTML=result['fields']['نام_خیر']
       date.innerHTML=result['fields']['تاریخ']
       quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
