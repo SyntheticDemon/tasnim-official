@@ -2,6 +2,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 function make_table(response){
+    sum=0
 
     table_body =document.getElementById("tbody")
     table=document.getElementById("results-table")
@@ -32,6 +33,15 @@ function make_table(response){
       table_body.appendChild(new_row)
       
     }
+    const new_row=document.createElement("tr")
+    const quantity=document.createElement("td")
+    
+    quantity.innerHTML=numberWithCommas (sum)
+    for (let i =0 ; i<4;i++){
+        new_row.appendChild(quantity)
+    }
+    table_body.appendChild(new_row)
+    
 }
 $(document).ready(function() {
 

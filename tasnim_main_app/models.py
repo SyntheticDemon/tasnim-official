@@ -42,7 +42,7 @@ class Input(models.Model):
     حساب_خیر=models.TextField(max_length=16)
     نام_خیر=models.TextField(max_length=100)
     مبلغ=models.DecimalField(max_digits=30,decimal_places=0)
-    نام_ورودی=models.TextField(max_length=300,verbose_name="یاد نشان")
+    نام_ورودی=models.TextField(max_length=300,null=True,verbose_name="یاد نشان")
     تاریخ=jmodels.jDateField(auto_created=True)
     input_project=models.ForeignKey(Project,on_delete=models.CASCADE,null=True,verbose_name="پروژه",related_name="related_proj")
 

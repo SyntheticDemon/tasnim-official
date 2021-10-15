@@ -4,6 +4,7 @@ function numberWithCommas(x) {
 function make_table(response){
     table_body =document.getElementById("tbody")
     table=document.getElementById("results-table")
+    sum=0
     for (result of response){
       const new_row=document.createElement("tr")
       const donor_name=document.createElement("td")
@@ -12,16 +13,17 @@ function make_table(response){
       const quantity=document.createElement("td")
       const operation_element=document.createElement("td")
       const remove_element=document.createElement("a",id="remove-link")
-      remove_element.href="/login/Inputs/delete/" + result['fields']['pk']
+      remove_element.href="/login/Inputs/delete/" + result['pk']
       const edit_element=document.createElement("a",id="update-link" )
-      edit_element.href="/login/Inputs/edit/" + result['fields']['pk']
+      edit_element.href="/login/Inputs/edit/" + result['pk']
       remove_element.innerHTML='<i class="fa fa-edit" style="color: blue;" ></i>'
-      edit_element.innerHTML='<i class="fa fa-plus" style="color: red; transform: rotate(45);" ></i>'
+      edit_element.innerHTML='<i class="fa fa-trash" style="color: red;" ></i>'
       operation_element.appendChild(remove_element)
       operation_element.appendChild(edit_element)
       donor_name.innerHTML=result['fields']['نام_خیر']
       date.innerHTML=result['fields']['تاریخ']
       quantity.innerHTML=numberWithCommas( result['fields']['مبلغ'])
+      sum+= result['fields']['مبلغ']
       new_card_num.innerHTML=result['fields']['حساب_خیر']
       new_row.appendChild(donor_name)
       new_row.appendChild(quantity)
@@ -31,6 +33,17 @@ function make_table(response){
       table_body.appendChild(new_row)
    
     }
+    const new_row=document.createElement("tr")
+    const quantity=document.createElement("td")
+    
+    quantity.innerHTML=numberWithCommas (sum)
+    for (let i =0 ; i<4;i++){
+        new_row.appendChild(quantity)
+    }
+    table_body.appendChild(new_row)
+    
+
+
 }
 $(document).ready(function() {
 
