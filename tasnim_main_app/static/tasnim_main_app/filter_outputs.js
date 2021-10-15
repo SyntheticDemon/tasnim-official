@@ -19,6 +19,7 @@ function make_table(response){
       edit_element.href="/login/Outputs/edit/" + result['pk']
       remove_element.innerHTML='<i class="fa fa-trash" style="color: red;" ></i> <br>'
       edit_element.innerHTML='<i class="fa fa-edit" style="color: blue; transform: rotate(45);" ></i>'
+      sum +=parseInt(result['fields']['مبلغ'])
       operation_element.appendChild(remove_element)
       operation_element.appendChild(edit_element)
       project_name.innerHTML=result['fields']['related_project']
@@ -33,14 +34,8 @@ function make_table(response){
       table_body.appendChild(new_row)
       
     }
-    const new_row=document.createElement("tr")
-    const quantity=document.createElement("td")
-    
-    quantity.innerHTML=numberWithCommas (sum)
-    for (let i =0 ; i<4;i++){
-        new_row.appendChild(quantity)
-    }
-    table_body.appendChild(new_row)
+
+    document.getElementById("sum").innerHTML=numberWithCommas(sum)  +" ریال "
     
 }
 $(document).ready(function() {

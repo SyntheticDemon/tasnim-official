@@ -2,6 +2,7 @@ function numberWithCommas(x) {
     return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 function read_values(response){
+    document.getElementById("results_chart").innerHTML=''
     input_x=[]
     input_y=[]
     outputs_x=[]
@@ -23,12 +24,17 @@ function read_values(response){
       data: { 
         labels: input_x.concat(outputs_x),
         datasets: [{
-          barThickness: 10,
           backgroundColor: colours,
           data: input_y.concat(outputs_y)
         }]
       },
       options: {
+          scales: {
+          xAxes: [{
+              barPercentage: 3
+          }]
+        }
+        ,
         legend: {display: false},
         title: {
           display: true,

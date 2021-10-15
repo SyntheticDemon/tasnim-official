@@ -10,6 +10,7 @@ from django.shortcuts import redirect, render
 from django.urls.base import reverse_lazy
 import django_jalali
 from jdatetime import jalali
+import logging
 from tasnim_main_app.models import Category, MyUser,User
 from django import forms
 from django.urls import reverse
@@ -93,6 +94,7 @@ def filter_fin_sets_inputs(set,request):
         else:
             end_date=None
         return set
+    
 def json_fancy_report_handler(request):
         result={}
         output_set=Output.objects.all()
@@ -101,8 +103,9 @@ def json_fancy_report_handler(request):
         first_set=filter_fin_sets_inputs(input_set,request)
         output_set=filter_fin_sets(output_set,request)
         set=chain(first_set,output_set)
-        result=serializers.serialize('json',set)
         
+        result=serializers.serialize('json',set)
+       
         return HttpResponse(result, content_type='application/json')
 def calculate_total_output(project):
     sum=0
@@ -152,6 +155,12 @@ def input_report_view(request):
             set=set.filter(مبلغ__lte=(max_value))
         
         result=serializers.serialize('json',set)
+        result_dic=json.loads(result)
+        for field in result_dic:
+            
+            int_pk =field['fields']['input_project']
+            field['fields']['input_project']=Project.objects.get(id=int(int_pk)).نام_پروژه
+        result=json.dumps(result_dic)
         return HttpResponse(result, content_type='application/json')
 def output_report_view(request):
         result={}
@@ -179,8 +188,14 @@ def output_report_view(request):
         set= set.filter(مبلغ__gt=(min_value))
         if(max_value!=0):
             set=set.filter(مبلغ__lte=(max_value))
-
         result=serializers.serialize('json',set)
+
+        result_dic=json.loads(result)
+        for field in result_dic:
+            
+            int_pk =field['fields']['related_project']
+            field['fields']['related_project']=Project.objects.get(id=int(int_pk)).نام_پروژه
+        result=json.dumps(result_dic)
         return HttpResponse(result, content_type='application/json')
 def admin_view(request):
     return render(request,'login.html')
@@ -246,18 +261,18 @@ class ProjectCreateView(CreateView):
     model = Project
     template_name = 'create.html'
     fields = '__all__'
-    success_url='/backhome/'
+    success_url='/login/Projects/add'
 
 class InputCreateView(CreateView):
     model = Input
     template_name = 'create.html'
     fields = '__all__'
-    success_url='/backhome/'
+    success_url='/login/Input/add'
 
 class OutputUpdateView(UpdateView):
     model = Output
     template_name = 'create.html'
-    success_url='/backhome/'
+    success_url='/login/Output/add'
 
     fields = '__all__'
 class ProjectUpdateView(UpdateView):
@@ -285,6 +300,7 @@ class OutputCreateView(CreateView):
     fields = '__all__'
 class ProjectListView(ListView):
     model = Project
+    
     context_object_name='data'
     template_name = 'list_all.html'
 
@@ -292,11 +308,13 @@ class ProjectListView(ListView):
 class InputListView(ListView):
     model = Input
     context_object_name='data'
+    paginate_by=10
     template_name = 'list_all.html'
     queryset=Input.objects.all().order_by('تاریخ')
 class OutputListView(ListView):
     model = Output
     context_object_name='data'
+    paginate_by=10
     template_name = 'list_all.html'
     
     queryset=Output.objects.all().order_by('تاریخ')
