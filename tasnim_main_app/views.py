@@ -67,7 +67,7 @@ def password_check(passwd):
 def filter_fin_sets(set,request):
         project_name=request.POST['project_name']
         if (len(project_name)):
-            set=set.filter(related_project__نام__contains=project_name)
+            set=set.filter(related_project__نام_پروژه__contains=project_name)
         if(len(request.POST['start_date'])!=0):
             start_date=request.POST['start_date']
             set=set.filter(تاریخ__gt=start_date)
@@ -80,9 +80,10 @@ def filter_fin_sets(set,request):
             end_date=None
         return set
 def filter_fin_sets_inputs(set,request):
+
         project_name=request.POST['project_name']
         if (len(project_name)):
-            set=set.filter(input_project__نام__contains=project_name)
+            set=set.filter(input_project__نام_پروژه__contains=project_name)
         if(len(request.POST['start_date'])!=0):
             start_date=request.POST['start_date']
             set=set.filter(تاریخ__gt=start_date)
@@ -267,12 +268,12 @@ class InputCreateView(CreateView):
     model = Input
     template_name = 'create.html'
     fields = '__all__'
-    success_url='/login/Input/add'
+    success_url='/login/Inputs/add'
 
 class OutputUpdateView(UpdateView):
     model = Output
     template_name = 'create.html'
-    success_url='/login/Output/add'
+    success_url='/login/Outputs/add'
 
     fields = '__all__'
 class ProjectUpdateView(UpdateView):
@@ -284,13 +285,13 @@ class ProjectUpdateView(UpdateView):
             return super().get_object(queryset)
         except AttributeError:
             return None
-    success_url='/backhome/'
+    success_url='/login/Project/add'
 
 class InputUpdateView(UpdateView):
     model = Input
     template_name = 'create.html'
     fields = '__all__'
-    success_url='/backhome/'
+    success_url='/login/Input/add'
 
 class OutputCreateView(CreateView):
     model = Output
@@ -308,13 +309,11 @@ class ProjectListView(ListView):
 class InputListView(ListView):
     model = Input
     context_object_name='data'
-    paginate_by=10
     template_name = 'list_all.html'
     queryset=Input.objects.all().order_by('تاریخ')
 class OutputListView(ListView):
     model = Output
     context_object_name='data'
-    paginate_by=10
     template_name = 'list_all.html'
     
     queryset=Output.objects.all().order_by('تاریخ')
