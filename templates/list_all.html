@@ -13,15 +13,16 @@
     }
 </style>
 
+
 <table style="float: inline-end;border-width: 1px;border-style: solid;position: absolute;left:60vh" >
 
         <tr>
-            {%if data.0.نام_پروژه%}   
+            {%if page_obj.0.نام_پروژه%}   
             <th>
             <span style="position:relative;top:15%;display:block;text-align:center;">نام پروژه</span>      
             </th>
             {%endif%}
-            {%if data.0.نام_خیر%}   
+            {%if page_obj.0.نام_خیر%}   
             <th>
             <span style="position:relative;top:15%;display:block;text-align:center;">نام خیر</span>      
             </th>
@@ -29,24 +30,24 @@
             <th>
                 <span style="position:relative;top:15%;display:block;text-align:center;"> تاریخ  </span>      
             </th>
-            {% if data.0.توضیحات%}
+            {% if page_obj.0.توضیحات%}
             <th>
                  <span style="position:relative;top:15%;display:block;text-align:center;">توضیحات </span>   
  
              </th>
              {%endif%}
-            {%if data.0.مبلغ%}
+            {%if page_obj.0.مبلغ%}
             <th>
             <span style="position:relative;top:15%;display:block;text-align:center;"> مبلغ  </span>      
             </th>
             {%endif%}
       
-            {%if data.0.حساب_مقصد%}   
+            {%if page_obj.0.حساب_مقصد%}   
                 <th>
                 <span style="position:relative;top:15%;display:block;text-align:center;"> حساب مقصد  </span>      
                 </th>
             {%endif%}
-            {%if data.0.حساب_خیر%}   
+            {%if page_obj.0.حساب_خیر%}   
             <th>
             <span style="position:relative;top:15%;display:block;text-align:center;"> حساب خیر </span>      
                 </th>
@@ -55,17 +56,18 @@
             <th>
                 عملیات
             </th>
+            
         </tr>
     
-    {%for object in data%}
+    {%for object in page_obj%}
     <tr>
-    {%if data.0.نام_خیر%}   
+    {%if page_obj.0.نام_خیر%}   
     <td>   
     <span>{{object.نام_خیر}}</span>      
     {%endif%}
 
     </td>
-        {%if data.0.نام_پروژه%}   
+        {%if page_obj.0.نام_پروژه%}   
         <td>   
         <span>{{object.نام_پروژه}}</span>      
         </td>
@@ -75,14 +77,14 @@
         </td>
        
   
-    {%if data.0.توضیحات%}   
+    {%if page_obj.0.توضیحات%}   
     <td>   
     <span>{{object.توضیحات}}</span>      
     </td>
     {%endif%}
 
     {%if object.مبلغ%}
-    <td>
+    <td title="quantity">
     <span>{{object.مبلغ}}   </span>      
     </td>
     {%endif%}
@@ -140,6 +142,25 @@
 </tr>
 
 {%endfor%}
+<div class="pagination main_style"  style="position:absolute;left:15%;width:25vh;background-color: rgb(255, 255, 255);z-index: 5;">
+
+    <span class="current "  style="width: 150px; " >
+        صفحه {{ page_obj.number }}  از {{ page_obj.paginator.num_pages }}
+    </span>
+    <span class="step-links">
+        {% if page_obj.has_previous %}
+        
+            <a href="?page={{ page_obj.previous_page_number }}"> قبلی </a>
+        {% endif %}
+            
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">بعدی </a>
+   
+        {% endif %}
+    </span>
+</div>
+
 </table> 
 {%endblock shit%}
 

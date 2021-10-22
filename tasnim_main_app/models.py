@@ -45,7 +45,8 @@ class Input(models.Model):
     نام_ورودی=models.TextField(max_length=300,null=True,verbose_name="یاد نشان")
     تاریخ=jmodels.jDateField(auto_created=True)
     input_project=models.ForeignKey(Project,on_delete=models.CASCADE,null=True,verbose_name="پروژه",related_name="related_proj")
-
+    def __name__(self)->str:
+        return "Input"
     def __str__(self) -> str:
         return  self.نام_ورودی+" "+self.نام_خیر
 class Output(models.Model):
@@ -54,5 +55,7 @@ class Output(models.Model):
     نام_ورودی=models.TextField(max_length=300)
     مبلغ=models.DecimalField(max_digits=30,decimal_places=2)
     تاریخ=jmodels.jDateField(auto_created=True,default="0")
+    def __name__(self)->str:
+        return "Output"
     def __str__(self) -> str:
         return self.حساب_مقصد+" "+self.نام_ورودی

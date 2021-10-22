@@ -7,14 +7,35 @@
 
 {%block shit%}
 
-<div class="container" style="position:relative;left: -5vh;">
-</div>
+
+<table style="top:-20vh;position:relative;left:75vh ; font-size: 18px;">
+<thead>
+       <caption >سی روز اخیر</caption>
+       <tr>   <td>نام  </td>  <td>ورودی </td> <td>خروجی</td></tr>
+</thead>
+       <tbody></tbody>
 {%for object in proj_total_finance%}
-<div class=" main_style sub-container" style="font-size:large;opacity:80%;border-radius:25px;height: 100px;width:250px;border-width: 4px;border-bottom-width:5px;border-bottom-color:rgba(135, 138, 135, 0.315)">
-           مجموع پروژه {{object.0}} {{object.1}} ریال
-    </div>
+
+           <tr>
+<td>
+              {{object.0.نام_پروژه}}
+       </td>       
+           <td>{{object.1}}            </td>
+           <br>
+           <td>{{object.2}}            </td>
+       </tr>
+   
            {%endfor%}
 </div>
+<script>
+       function beautify_number(x){
+              return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+       }
+       for (data of document.getElementsByTagName("TD")){
+              data.innerHTML=beautify_number(data.innerHTML)
+       }
+</script>     
 {%endblock shit%}
-
+</table>
 </body> 
+

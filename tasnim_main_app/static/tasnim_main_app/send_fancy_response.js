@@ -54,9 +54,8 @@ function read_values(response) {
       }]
     },
     options: {
-      events :[''],
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: false,
       legend: {
         display: false,
         

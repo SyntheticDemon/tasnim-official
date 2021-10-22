@@ -63,6 +63,14 @@
       <input type="submit" value="اعمال کن" class="input-text main_style">
 
     </form>
+    <script>
+      function beautify_number(x){
+             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      }
+      for (data of document.getElementsByTagName("TD")){
+             data.innerHTML=beautify_number(data.innerHTML)
+      }
+</script>     
     <script src="{%static 'tasnim_main_app/filter_outputs.js'%}">
 
     </script>

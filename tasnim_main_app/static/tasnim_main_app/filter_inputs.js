@@ -37,9 +37,15 @@ function make_table(response){
     document.getElementById("sum").innerHTML=numberWithCommas(sum)  +" ریال "
 }
 $(document).ready(function() {
+    try {
+        (document.getElementById("background-image-2")).remove()
+    }
+    catch{
+      console.log("removed background image")
+    }
+    
 
-
-        
+         
     // catch the form's submit event
     $('#filter-form').submit(function() {
         // create an AJAX call

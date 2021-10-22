@@ -7,9 +7,11 @@ from django.db.models.fields import DateTimeField
 from django.http import response
 from django.http.response import Http404, HttpResponse, HttpResponseBadRequest, HttpResponseNotAllowed, JsonResponse
 from django.shortcuts import redirect, render
+from django.db.models.functions import ExtractMonth
 from django.urls.base import reverse_lazy
 import django_jalali
 from jdatetime import jalali
+import jdatetime
 import logging
 from tasnim_main_app.models import Category, MyUser,User
 from django import forms
@@ -108,21 +110,26 @@ def json_fancy_report_handler(request):
         result=serializers.serialize('json',set)
        
         return HttpResponse(result, content_type='application/json')
-def calculate_total_output(project):
+def calculate_total(project,set):
     sum=0
-    target_outputs=Output.objects.filter(related_project=project)
-    for output in target_outputs:
-        sum+=output.مبلغ
+    
+    today=jdatetime.date.today().isoformat()
+    thirty_days_ago=(jdatetime.date.today()-jdatetime.timedelta(30)).isoformat()
+    target_entries=[]
+    if (set[0].__class__.__name__ == "Input"):
+        target_entries=set.filter(input_project=project,تاریخ__gt=thirty_days_ago,تاریخ__lte=today)
+    elif(set[0].__class__.__name__ =="Output"):
+        target_entries=set.filter(related_project=project,تاریخ__gt=thirty_days_ago,تاریخ__lte=today)
+    for entry in target_entries:
+        sum+=entry.مبلغ
     return sum
 def project_report_view(request):
-    total_project_output=0
+    
     project_list=[]
-    context={'proj_total_finance':[],
-            'total_output':total_project_output}
-    for output in Output.objects.all():
-        total_project_output+=output.مبلغ
+    context={'proj_total_finance':[]}
     for project in Project.objects.all():
-         project_list.append((project,calculate_total_output(project)))
+         project_list.append((project,calculate_total(project,Output.objects.all()
+         ),calculate_total(project,Input.objects.all())))
     context['proj_total_finance']=project_list
     context['proj_total_finance'].sort(key=lambda x:x[1],reverse=True)
     return render(request,'report.html',context)
@@ -299,21 +306,22 @@ class OutputCreateView(CreateView):
     success_url='/backhome/'
 
     fields = '__all__'
+
 class ProjectListView(ListView):
     model = Project
     
-    context_object_name='data'
+    paginate_by= 7
     template_name = 'list_all.html'
 
     queryset=Project.objects.all().order_by('تاریخ')
 class InputListView(ListView):
     model = Input
-    context_object_name='data'
+    paginate_by= 7
     template_name = 'list_all.html'
     queryset=Input.objects.all().order_by('تاریخ')
 class OutputListView(ListView):
     model = Output
-    context_object_name='data'
+    paginate_by= 7
     template_name = 'list_all.html'
     
     queryset=Output.objects.all().order_by('تاریخ')

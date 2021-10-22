@@ -39,6 +39,13 @@ function make_table(response){
     
 }
 $(document).ready(function() {
+    try {
+        (document.getElementById("background-image-2")).remove()
+    }
+    catch{
+      console.log("removed background image")
+    }
+    
 
 
         
