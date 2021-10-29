@@ -44,7 +44,7 @@ urlpatterns = [
        path('login/Outputs/edit/<int:pk>',OutputUpdateView.as_view(),name='edit_outputs'),
        path('login/Inputs/edit/<int:pk>',InputUpdateView.as_view(),name='edit_inputs'),
        path('login/Projects/edit/<int:pk>',ProjectUpdateView.as_view(),name='edit_projects'),
-       path('login/Projects/report/<int:days>',project_report_view),
+       path('login/Projects/report',project_report_view),
        path('login/Inputs/detail_report',input_filter_view),
        path('login/Outputs/detail_report',output_filter_view),
        path('login/Inputs/get_report',input_report_view),

@@ -112,33 +112,40 @@ def json_fancy_report_handler(request):
         return HttpResponse(result, content_type='application/json')
 import logging
 
-def calculate_total(project,set,days):
+def calculate_total(project,set,start,end):
     sum=0
-    
-    today=jdatetime.date.today().isoformat()
-    thirty_days_ago=(jdatetime.date.today()-jdatetime.timedelta(days)).isoformat()
-    target_entries=[]
     logger = logging.getLogger("mylogger")
+    if(len(start)==0):
+        start= "1400-1-1"
+    if(len(end)==0):
+        end="1500-1-1" #I apolgoize if this is not readable but this is the shortest way to filter without upper bound on date
+    logger.info(start)
+    logger.info(end)
+    target_entries=[]
     logger.info(set[0].__class__.__name__ )
     if (set[0].__class__.__name__ == "Input"):
-        target_entries=set.filter(input_project=project,تاریخ__gt=thirty_days_ago,تاریخ__lte=today)
+        target_entries=set.filter(input_project=project,تاریخ__gt=start,تاریخ__lte=end)
     elif(set[0].__class__.__name__ =="Output"):
-        target_entries=set.filter(related_project=project,تاریخ__gt=thirty_days_ago,تاریخ__lte=today)
-    logger.info(thirty_days_ago)
-    logger.info(today)
+        target_entries=set.filter(related_project=project,تاریخ__gt=start,تاریخ__lte=end)
+
     logger.info(target_entries)
     for entry in target_entries:
         sum+=entry.مبلغ
     return sum
-def project_report_view(request,days):
-    
+def project_report_view(request):
+    start=""
+    end=""
+    try:
+        start=request.POST['start_date']
+        end=request.POST['end_date']
+    except:
+        pass
     project_list=[]
     context={'proj_total_finance':[]
-    ,"days":days
     }
     for project in Project.objects.all():
          project_list.append((project,calculate_total(project,Output.objects.all()
-         ,days),calculate_total(project,Input.objects.all(),days)))
+         ,start,end),calculate_total(project,Input.objects.all(),start,end)))
     context['proj_total_finance']=project_list
     context['proj_total_finance'].sort(key=lambda x:x[1],reverse=True)
     return render(request,'report.html',context)
@@ -153,10 +160,13 @@ def input_report_view(request):
         
         donor_name=request.POST['donor_name']
         card_number=request.POST['card_number']
+        project_name =request.POST['project_name']
         if(len(donor_name)):
             set=set.filter(نام_خیر__contains=donor_name)
         if(len(card_number)):
             set=set.filter(حساب_خیر__contains=card_number)
+        if (len(project_name)):
+            set=set.filter(input_project__نام_پروژه__contains=project_name)
         if(len(request.POST['start_date'])!=0):
             start_date=request.POST['start_date']
             set=set.filter(تاریخ__gt=start_date)

@@ -6,12 +6,26 @@
 
 
 {%block shit%}
+<div style="position: absolute;left:50px" >
+<form  id="filter-form"  action="/login/Projects/report" method="POST" >    {%csrf_token%}
+    
+    
+       <p><label >از تاریخ</label> <input type="text" name="start_date"  id="id_تاریخ" class="input-text main_style">
+       <p><label> تا تاریخ</label> <input type="text" name="end_date"  id="id_نام_پروژه" class="input-text main_style"></p>
+     
+    
 
-
+    
+       </p>
+       
+     <input type="submit"  value="اعمال کن" class="input-text main_style">
+        
+   </form>
+</div>
 <table style="top:-20vh;position:relative;left:75vh ; font-size: 18px;">
 <thead>
-       <caption >last {{days}} days </caption>
-       <tr>   <td>نام  </td>  <td> خروجی</td> <td> ورودی</td></tr>
+      
+       <tr>   <td>نام  </td>  <td> ورودی</td> <td> خروجی</td> </tr>
 </thead>
        <tbody></tbody>
 {%for object in proj_total_finance%}
