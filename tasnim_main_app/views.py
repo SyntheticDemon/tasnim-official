@@ -110,26 +110,35 @@ def json_fancy_report_handler(request):
         result=serializers.serialize('json',set)
        
         return HttpResponse(result, content_type='application/json')
-def calculate_total(project,set):
+import logging
+
+def calculate_total(project,set,days):
     sum=0
     
     today=jdatetime.date.today().isoformat()
-    thirty_days_ago=(jdatetime.date.today()-jdatetime.timedelta(30)).isoformat()
+    thirty_days_ago=(jdatetime.date.today()-jdatetime.timedelta(days)).isoformat()
     target_entries=[]
+    logger = logging.getLogger("mylogger")
+    logger.info(set[0].__class__.__name__ )
     if (set[0].__class__.__name__ == "Input"):
         target_entries=set.filter(input_project=project,تاریخ__gt=thirty_days_ago,تاریخ__lte=today)
     elif(set[0].__class__.__name__ =="Output"):
         target_entries=set.filter(related_project=project,تاریخ__gt=thirty_days_ago,تاریخ__lte=today)
+    logger.info(thirty_days_ago)
+    logger.info(today)
+    logger.info(target_entries)
     for entry in target_entries:
         sum+=entry.مبلغ
     return sum
-def project_report_view(request):
+def project_report_view(request,days):
     
     project_list=[]
-    context={'proj_total_finance':[]}
+    context={'proj_total_finance':[]
+    ,"days":days
+    }
     for project in Project.objects.all():
          project_list.append((project,calculate_total(project,Output.objects.all()
-         ),calculate_total(project,Input.objects.all())))
+         ,days),calculate_total(project,Input.objects.all(),days)))
     context['proj_total_finance']=project_list
     context['proj_total_finance'].sort(key=lambda x:x[1],reverse=True)
     return render(request,'report.html',context)
@@ -343,10 +352,12 @@ def ProjectDeleteView(request,id):
 
 class InputEditView(UpdateView):
     model = Input
+    success_url='/logged_in'
     template_name = 'templates/create.html'
     fields = '__all__'
 class OutputEditView(UpdateView):
     model = Output
+    success_url='/logged_in'
     template_name = 'templates/create.html'
     fields = '__all__'
 def home_page(request):

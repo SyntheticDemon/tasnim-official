@@ -54,6 +54,23 @@ function read_values(response) {
       }]
     },
     options: {
+       tooltips: {
+      callbacks: {
+        title: function(tooltipItem, data) {
+          return data['labels'][tooltipItem[0]['index']];
+        },
+        label: function(tooltipItem, data) {
+          return data['datasets'][0]['data'][tooltipItem['index']];
+        },
+      
+      },
+      backgroundColor: '#FFF',
+      titleFontSize: 16,
+      titleFontColor: '#0066ff',
+      bodyFontColor: '#000',
+      bodyFontSize: 14,
+      displayColors: false
+    },
       responsive: true,
       maintainAspectRatio: false,
       legend: {
